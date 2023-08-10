@@ -14,6 +14,7 @@ public class WeatherByZipCodeCommand implements Runnable {
         System.out.println("By Zip Code:" + zipCode);
 
         try {
+
             WeatherService weatherService = new WeatherServiceImpl();
             System.out.println(weatherService.getByZipCodeTemperature(zipCode));
         }catch (Exception e){

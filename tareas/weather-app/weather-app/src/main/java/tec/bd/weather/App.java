@@ -1,8 +1,7 @@
 package tec.bd.weather;
 
 import picocli.CommandLine;
-import tec.bd.weather.WeatherService;
-import tec.bd.weather.WeatherServiceImpl;
+
 
 /**
  * Hello world!
@@ -20,7 +19,6 @@ public class App
             cmd.usage(System.out);
         }
 
-        //WeatherService weatherService = new WeatherServiceImpl();
-        //System.out.println(weatherService.getTemperature("Alajuela"));
+
     }
 }
