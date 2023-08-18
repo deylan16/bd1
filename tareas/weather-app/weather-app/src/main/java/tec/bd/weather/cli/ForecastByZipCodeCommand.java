@@ -2,11 +2,9 @@ package tec.bd.weather.cli;
 
 import picocli.CommandLine;
 import tec.bd.weather.ApplicationContext;
-import tec.bd.weather.service.WeatherService;
-import tec.bd.weather.service.WeatherServiceImpl;
 
-@CommandLine.Command(name = "by-zip",description = "Get weather for a Zip Code ")
-public class WeatherByZipCodeCommand implements Runnable {
+@CommandLine.Command(name = "by-zip", aliases = { "bz" },description = "Get weather for a Zip Code ")
+public class ForecastByZipCodeCommand implements Runnable {
 
     @CommandLine.Parameters(paramLabel = "<zip code>",description = "The zip code")
     private String zipCode;
