@@ -1,4 +1,4 @@
-package tec.bd.weather;
+package tec.bd.weather.cli;
 
 import picocli.CommandLine;
 
