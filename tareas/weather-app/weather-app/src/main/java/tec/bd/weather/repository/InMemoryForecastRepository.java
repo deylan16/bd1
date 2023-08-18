@@ -39,6 +39,7 @@ public class InMemoryForecastRepository implements Repository<Forecast,Integer>{
     public void delete(Integer id) {
         var weatherToDelete = this.findById(id);
         this.inMemoryForecasData.remove(weatherToDelete.get());
+
     }
 
     @Override
