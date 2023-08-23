@@ -101,6 +101,7 @@ public class WeatherServiceImplTest {
     // TODO: Si se intenta ingresar un nuevo Forecast con miembros inválidos, el método no debe llamar al repositorio.
     @Test
     public void GivenAInvalidForecast_WhenCreateNewForecast_ThenServiceException() {
+        
 
     }
 
