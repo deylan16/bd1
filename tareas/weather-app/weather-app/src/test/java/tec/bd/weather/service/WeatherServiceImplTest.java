@@ -57,6 +57,47 @@ public class WeatherServiceImplTest {
         verify(forecastRepository, times(1)).findAll();
     }
 
+
+    @Test
+    public void GivenAZipCode_WhenZipCodeIsSupported_ThenReturnTemperature() {
+        // Arrange
+        var forecastRepository = mock(InMemoryForecastRepository.class);
+        var weatherService = new WeatherServiceImpl(forecastRepository);
+        var forecast = mock(Forecast.class); // new Forecast(..,..,..,..,..)
+
+        given(forecast.getZipCode()).willReturn("10101");
+        given(forecast.getTemperature()).willReturn(23.0f);
+        given(forecastRepository.findAll()).willReturn(List.of(forecast));
+
+        // Act
+        var actual = weatherService.getByZipCodeTemperature("10101");
+
+        // Assert
+        verify(forecastRepository, times(1)).findAll();
+        verify(forecast, times(1)).getZipCode();
+        verify(forecast, times(1)).getTemperature();
+
+        assertThat(actual).isEqualTo(23.0f);
+    }
+    @Test
+    public void GivenAZipCode_WhenZipCodeIsNotSupported_ThenException() {
+        // Arrange
+        var forecastRepository = mock(InMemoryForecastRepository.class);
+        var weatherService = new WeatherServiceImpl(forecastRepository);
+
+        given(forecastRepository.findAll()).willReturn(Collections.emptyList());
+
+        // Act
+        try {
+            weatherService.getByZipCodeTemperature("10101");
+            fail("We shouldn't reach this line!");
+        } catch (Exception e) {
+
+        }
+
+        // Assert
+        verify(forecastRepository, times(1)).findAll();
+    }
     @Test
     public void GivenAValidForecast_WhenCreateNewForecast_ThenForecastIsCreated() {
         // Arrange
@@ -74,6 +115,8 @@ public class WeatherServiceImplTest {
         verify(forecastRepository, times(1)).findById(5);
         verify(forecastRepository, times(1)).save(forecast);
     }
+
+
 
     @Test
     public void GivenExistingForecast_WhenCreateNewForecast_ThenServiceException() {
@@ -230,7 +273,7 @@ public class WeatherServiceImplTest {
     }
 
 
-    // TODO: prueba unitaria para probar que un Forecast ID que NO exista no pueda ser eliminado
+    // listo: prueba unitaria para probar que un Forecast ID que NO exista no pueda ser eliminado
     @Test
     public void GivenValidForecast_WhenRemoveFarecast_ThenServiceException() {
 
