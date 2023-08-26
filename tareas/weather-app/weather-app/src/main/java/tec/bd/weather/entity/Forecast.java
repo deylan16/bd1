@@ -1,18 +1,24 @@
 package tec.bd.weather.entity;
 
+import java.util.Date;
+
 public class Forecast {
     private Integer id;
     private float temperature;
+
+    private Date forecastDate;
     private String cityName;
 
     private String zipCode;
     private String countryName;
 
-    public Forecast(Integer id, String countryName, String cityName, String zipCode, float temperature) {
+    public Forecast() { }
+    public Forecast(Integer id, String countryName, String cityName, String zipCode, Date forecastDate, float temperature) {
         this.id = id;
         this.temperature = temperature;
         this.cityName = cityName;
         this.zipCode = zipCode;
+        this.forecastDate = forecastDate;
         this.countryName = countryName;
 
     }
@@ -53,6 +59,14 @@ public class Forecast {
         return countryName;
     }
 
+    public Date getForecastDate() {
+        return forecastDate;
+    }
+
+    public void setForecastDate(Date forecastDate) {
+        this.forecastDate = forecastDate;
+    }
+
     @Override
     public String toString() {
         return "Forecast {" +
@@ -61,6 +75,7 @@ public class Forecast {
                 ", country = '" + countryName + '\'' +
                 ", city = '" + cityName + '\'' +
                 ", zipCode = '" + zipCode + '\'' +
+                ", date = '" + forecastDate + '\'' +
                 ", temperature = " + temperature +
                 '}';
     }
@@ -92,4 +107,6 @@ public class Forecast {
             throw new RuntimeException("Weather forecast temperature invalid");
         }
     }
+
+
 }
