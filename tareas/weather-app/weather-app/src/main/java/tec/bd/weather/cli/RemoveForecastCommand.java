@@ -17,7 +17,7 @@ public class RemoveForecastCommand implements Runnable {
             var weatherService = appContext.getWeatherService();
 
             weatherService.removeForecast(removedForecastId);
-            System.out.println("The Forecast has been removed");
+            System.out.println("The Forecast has been removed with id "+ removedForecastId);
         } catch (Exception e) {
             System.err.println("Can't removed forecast. " +  e.getMessage());
         }

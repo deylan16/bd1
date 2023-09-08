@@ -10,9 +10,8 @@ import picocli.CommandLine;
                 CreateForecastCommand.class,
                 UpdateForecastCommand.class,
                 RemoveForecastCommand.class,
-
-
-                CommandLine.HelpCommand.class
+                CommandLine.HelpCommand.class,
+                AllForecastsCommand.class
         },description = "Weather App"
 )
 

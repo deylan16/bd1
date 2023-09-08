@@ -22,6 +22,11 @@ public class Forecast {
         this.countryName = countryName;
 
     }
+    public Forecast(String countryName, String cityName, String zipCode, Date forecastDate, float temperature) {
+        this(0, countryName, cityName, zipCode, forecastDate, temperature);
+    }
+
+
 
     public float getTemperature() {
         return temperature;
@@ -88,12 +93,12 @@ public class Forecast {
         if (forecast == null) {
             throw new RuntimeException("No weather forecast was provided");
         }
-        if (forecast.getId() == null) {
-            throw new RuntimeException("No weather forecast ID was provided");
-        }
-        if (forecast.getId() < 1) {
-            throw new RuntimeException("Weather forecast ID invalid");
-        }
+        //if (forecast.getId() == null) {
+        //    throw new RuntimeException("No weather forecast ID was provided");
+       // }
+        //if (forecast.getId() < 1) {
+        //    throw new RuntimeException("Weather forecast ID invalid");
+        //}
         if (forecast.getCountryName().isBlank()) {
             throw new RuntimeException("Weather forecast country invalid");
         }
