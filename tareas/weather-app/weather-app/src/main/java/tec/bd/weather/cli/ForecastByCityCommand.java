@@ -16,11 +16,9 @@ public class ForecastByCityCommand implements Runnable {
         try {
             var appContext = new ApplicationContext();
             var weatherService = appContext.getWeatherService();
-
             System.out.println(weatherService.getByCityTemperature(cityName));
         }catch (Exception e){
             System.err.println(cityName + " id not soported");
         }
-
     }
 }
