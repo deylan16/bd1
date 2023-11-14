@@ -38,6 +38,16 @@ public class Queries {
 
     public static final String UPDATE_STATE_PROC = "call update_state(?, ?,?)";
 
+    //city conections
+    public static final String CREATE_CITY_PROC= "{call create_city(?,?,?,?)} ";
+
+    public static final String FIND_ALL_CITYS_PROC= "{call find_all_citys(?)}";
+
+    public static final String DELETE_CITY_BY_ID_PROC = "call delete_city(?)";
+
+    public static final String UPDATE_CITY_PROC = "call update_city(?, ?,?,?)";
+
+
 
 
 

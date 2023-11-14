@@ -4,11 +4,13 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.sqlite.SQLiteDataSource;
 import com.mysql.cj.jdbc.MysqlDataSource;
+import tec.bd.weather.entity.City;
 import tec.bd.weather.entity.Country;
 import tec.bd.weather.entity.State;
 import tec.bd.weather.entity.Forecast;
 import tec.bd.weather.repository.memory.InMemoryForecastRepository;
 import tec.bd.weather.repository.Repository;
+import tec.bd.weather.repository.sql.CityRepository;
 import tec.bd.weather.repository.sql.CountryRepository;
 import tec.bd.weather.repository.sql.ForecastRepository;
 import tec.bd.weather.repository.sql.StateRepository;
@@ -38,12 +40,15 @@ public class ApplicationContext {
     private Repository<Country, Integer> sqlCountryRepository;
 
     private Repository<State, Integer> sqlStateRepository;
+    private Repository<City, Integer> sqlCityRepository;
 
     private WeatherService weatherService;
 
     private CountryService countryService;
 
     private StateService stateService;
+
+    private CityService CityService;
 
     public ApplicationContext() {
         initSqliteDataSource();
@@ -54,11 +59,13 @@ public class ApplicationContext {
         initSQLForecastRepository();
         initSQLCountryRepository();
         initSQLStateRepository();
+        initSQLCityRepository();
 
         initWeatherService();
 
         initStateService();
         initCountryService();
+        initCityService();
 
 
 
@@ -116,7 +123,7 @@ public class ApplicationContext {
         return this.weatherService;
     }
 
-    //Country Service
+    //State Service
     private void initSQLStateRepository() {
         this.sqlStateRepository = new StateRepository(this.mysqlDataSource);
     }
@@ -133,7 +140,7 @@ public class ApplicationContext {
         return this.stateService;
     }
 
-    //State Service
+    //Country Service
 
     private void initSQLCountryRepository() {
         this.sqlCountryRepository = new CountryRepository(this.mysqlDataSource);
@@ -149,6 +156,24 @@ public class ApplicationContext {
 
     public CountryService getCountryService(){
         return this.countryService;
+    }
+
+    //City Service
+
+    private void initSQLCityRepository() {
+        this.sqlCityRepository = new CityRepository(this.mysqlDataSource);
+    }
+
+    public Repository<City, Integer> getSqlCityRepository() {
+        return this.sqlCityRepository;
+    }
+
+    private void initCityService() {
+        this.CityService = new CityServiceImpl(this.sqlCityRepository);
+    }
+
+    public CityService getCityService(){
+        return this.CityService;
     }
 
 }
