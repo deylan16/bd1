@@ -5,6 +5,10 @@ import tec.bd.weather.cli.country.CreateCountryCommand;
 import tec.bd.weather.cli.country.DeleteCountryCommand;
 import tec.bd.weather.cli.country.ReadCountryCommand;
 import tec.bd.weather.cli.country.UpdateCountryCommand;
+import tec.bd.weather.cli.state.CreateStateCommand;
+import tec.bd.weather.cli.state.DeleteStateCommand;
+import tec.bd.weather.cli.state.ReadStateCommand;
+import tec.bd.weather.cli.state.UpdateStateCommand;
 
 @CommandLine.Command(
         name= "Weather App",
@@ -20,7 +24,12 @@ import tec.bd.weather.cli.country.UpdateCountryCommand;
                 CreateCountryCommand.class,
                 DeleteCountryCommand.class,
                 ReadCountryCommand.class,
-                UpdateCountryCommand.class
+                UpdateCountryCommand.class,
+                //State related Commands
+                CreateStateCommand.class,
+                DeleteStateCommand.class,
+                ReadStateCommand.class,
+                UpdateStateCommand.class
         },description = "Weather App"
 )
 

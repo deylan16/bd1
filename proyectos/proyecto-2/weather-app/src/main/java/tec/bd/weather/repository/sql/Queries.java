@@ -28,4 +28,17 @@ public class Queries {
 
     public static final String UPDATE_COUNTRY_PROC = "call update_country(?, ?)";
 
+
+    //state conections
+    public static final String CREATE_STATE_PROC= "{call create_state(?,?,?)} ";
+
+    public static final String FIND_ALL_STATES_PROC= "{call find_all_states(?)}";
+
+    public static final String DELETE_STATE_BY_ID_PROC = "call delete_state(?)";
+
+    public static final String UPDATE_STATE_PROC = "call update_state(?, ?,?)";
+
+
+
+
 }

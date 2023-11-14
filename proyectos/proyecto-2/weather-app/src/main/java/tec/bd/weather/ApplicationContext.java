@@ -5,15 +5,14 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.sqlite.SQLiteDataSource;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import tec.bd.weather.entity.Country;
+import tec.bd.weather.entity.State;
 import tec.bd.weather.entity.Forecast;
 import tec.bd.weather.repository.memory.InMemoryForecastRepository;
 import tec.bd.weather.repository.Repository;
 import tec.bd.weather.repository.sql.CountryRepository;
 import tec.bd.weather.repository.sql.ForecastRepository;
-import tec.bd.weather.service.CountryService;
-import tec.bd.weather.service.CountryServiceImpl;
-import tec.bd.weather.service.WeatherService;
-import tec.bd.weather.service.WeatherServiceImpl;
+import tec.bd.weather.repository.sql.StateRepository;
+import tec.bd.weather.service.*;
 
 
 import javax.sql.DataSource;
@@ -38,9 +37,13 @@ public class ApplicationContext {
 
     private Repository<Country, Integer> sqlCountryRepository;
 
+    private Repository<State, Integer> sqlStateRepository;
+
     private WeatherService weatherService;
 
     private CountryService countryService;
+
+    private StateService stateService;
 
     public ApplicationContext() {
         initSqliteDataSource();
@@ -50,10 +53,14 @@ public class ApplicationContext {
         initInMemoryForecastRepository();
         initSQLForecastRepository();
         initSQLCountryRepository();
+        initSQLStateRepository();
 
         initWeatherService();
 
+        initStateService();
         initCountryService();
+
+
 
     }
 
@@ -110,6 +117,24 @@ public class ApplicationContext {
     }
 
     //Country Service
+    private void initSQLStateRepository() {
+        this.sqlStateRepository = new StateRepository(this.mysqlDataSource);
+    }
+
+    public Repository<State, Integer> getSqlStateRepository() {
+        return this.sqlStateRepository;
+    }
+
+    private void initStateService() {
+        this.stateService = new StateServiceImpl(this.sqlStateRepository);
+    }
+
+    public StateService getStateService(){
+        return this.stateService;
+    }
+
+    //State Service
+
     private void initSQLCountryRepository() {
         this.sqlCountryRepository = new CountryRepository(this.mysqlDataSource);
     }
