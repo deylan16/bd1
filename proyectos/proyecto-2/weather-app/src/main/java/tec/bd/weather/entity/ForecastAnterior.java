@@ -2,7 +2,7 @@ package tec.bd.weather.entity;
 
 import java.util.Date;
 
-public class Forecast {
+public class ForecastAnterior {
     private Integer id;
     private float temperature;
 
@@ -12,8 +12,8 @@ public class Forecast {
     private String zipCode;
     private String countryName;
 
-    public Forecast() { }
-    public Forecast(Integer id, String countryName, String cityName, String zipCode, Date forecastDate, float temperature) {
+    public ForecastAnterior() { }
+    public ForecastAnterior(Integer id, String countryName, String cityName, String zipCode, Date forecastDate, float temperature) {
         this.id = id;
         this.temperature = temperature;
         this.cityName = cityName;
@@ -22,7 +22,7 @@ public class Forecast {
         this.countryName = countryName;
 
     }
-    public Forecast(String countryName, String cityName, String zipCode, Date forecastDate, float temperature) {
+    public ForecastAnterior(String countryName, String cityName, String zipCode, Date forecastDate, float temperature) {
         this(0, countryName, cityName, zipCode, forecastDate, temperature);
     }
 
@@ -89,8 +89,8 @@ public class Forecast {
         this.countryName = countryName;
     }
 
-    public static void validate(Forecast forecast) {
-        if (forecast == null) {
+    public static void validate(ForecastAnterior forecastAnterior) {
+        if (forecastAnterior == null) {
             throw new RuntimeException("No weather forecast was provided");
         }
         //if (forecast.getId() == null) {
@@ -99,16 +99,16 @@ public class Forecast {
         //if (forecast.getId() < 1) {
         //    throw new RuntimeException("Weather forecast ID invalid");
         //}
-        if (forecast.getCountryName().isBlank()) {
+        if (forecastAnterior.getCountryName().isBlank()) {
             throw new RuntimeException("Weather forecast country invalid");
         }
-        if (forecast.getCityName().isBlank()) {
+        if (forecastAnterior.getCityName().isBlank()) {
             throw new RuntimeException("Weather forecast city invalid");
         }
-        if (forecast.getZipCode().isBlank()) { // se podria utilizar un Regex
+        if (forecastAnterior.getZipCode().isBlank()) { // se podria utilizar un Regex
             throw new RuntimeException("Weather forecast zip code invalid");
         }
-        if (forecast.getTemperature() < 0) {
+        if (forecastAnterior.getTemperature() < 0) {
             throw new RuntimeException("Weather forecast temperature invalid");
         }
     }

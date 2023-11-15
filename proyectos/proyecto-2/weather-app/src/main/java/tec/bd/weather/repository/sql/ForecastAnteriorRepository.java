@@ -1,6 +1,6 @@
 package tec.bd.weather.repository.sql;
 
-import tec.bd.weather.entity.Forecast;
+import tec.bd.weather.entity.ForecastAnterior;
 import tec.bd.weather.repository.Repository;
 
 import javax.sql.DataSource;
@@ -8,16 +8,16 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
-public class ForecastRepository implements Repository<Forecast, Integer>  {
+public class ForecastAnteriorRepository implements Repository<ForecastAnterior, Integer>  {
 
     private final DataSource dataSource;
 
-    public ForecastRepository(DataSource dataSource) {
+    public ForecastAnteriorRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     @Override
-    public Optional<Forecast> findById(Integer forecastID) {
+    public Optional<ForecastAnterior> findById(Integer forecastID) {
 
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(Queries.FIND_FORECAST_BY_ID)) {
@@ -38,14 +38,14 @@ public class ForecastRepository implements Repository<Forecast, Integer>  {
     }
 
     @Override
-    public List<Forecast> findAll() {
+    public List<ForecastAnterior> findAll() {
 
         // JDBC URL for SQLite database in src/main/resources/sqlite
 
         // 1. Cadena de conexion
         // String url = "jdbc:sqlite::resource:sqlite/weather-service.db";
 
-        List<Forecast> allForecasts = new ArrayList<>();
+        List<ForecastAnterior> allForecastAnteriors = new ArrayList<>();
         try (Connection connection = this.dataSource.getConnection();
              Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(Queries.FIND_ALL_FORECAST)) {
@@ -53,34 +53,34 @@ public class ForecastRepository implements Repository<Forecast, Integer>  {
             // loop through the result set
             while (rs.next()) {
                 var forecast = this.fromResultSet(rs);
-                allForecasts.add(forecast);
+                allForecastAnteriors.add(forecast);
             }
 
         } catch (SQLException e) {
             throw new RuntimeException("Failed to retrieve forecasts", e);
         }
 
-        return allForecasts;
+        return allForecastAnteriors;
     }
 
     @Override
-    public Forecast save(Forecast forecast) {
+    public ForecastAnterior save(ForecastAnterior forecastAnterior) {
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(Queries.INSERT_NEW_FORECAST, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setString(1, forecast.getCountryName());
-            stmt.setString(2, forecast.getCityName());
-            stmt.setString(3, forecast.getZipCode());
-            stmt.setDate(4, new java.sql.Date(forecast.getForecastDate().getTime()));
-            stmt.setFloat(5, forecast.getTemperature());
+            stmt.setString(1, forecastAnterior.getCountryName());
+            stmt.setString(2, forecastAnterior.getCityName());
+            stmt.setString(3, forecastAnterior.getZipCode());
+            stmt.setDate(4, new java.sql.Date(forecastAnterior.getForecastDate().getTime()));
+            stmt.setFloat(5, forecastAnterior.getTemperature());
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 // Get the last inserted ID
-                forecast.setId(generatedKeys.getInt(1));
+                forecastAnterior.setId(generatedKeys.getInt(1));
             }
-            return forecast;
+            return forecastAnterior;
         } catch (SQLException e) {
             throw new RuntimeException("Failed to save forecast", e);
         }
@@ -107,7 +107,7 @@ public class ForecastRepository implements Repository<Forecast, Integer>  {
     }
 
     @Override
-    public Forecast update(Forecast source) {
+    public ForecastAnterior update(ForecastAnterior source) {
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(Queries.UPDATE_FORECAST)) {
 
@@ -130,9 +130,9 @@ public class ForecastRepository implements Repository<Forecast, Integer>  {
         }
     }
 
-    private Forecast fromResultSet(ResultSet rs) throws SQLException {
+    private ForecastAnterior fromResultSet(ResultSet rs) throws SQLException {
         var forecastDate = rs.getDate("forecast_date");
-        return new Forecast(
+        return new ForecastAnterior(
                 rs.getInt("forecast_id"),
                 rs.getString("country_name"),
                 rs.getString("city_name"),

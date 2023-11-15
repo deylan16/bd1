@@ -6,13 +6,13 @@ import org.sqlite.SQLiteDataSource;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import tec.bd.weather.entity.City;
 import tec.bd.weather.entity.Country;
+import tec.bd.weather.entity.ForecastAnterior;
 import tec.bd.weather.entity.State;
-import tec.bd.weather.entity.Forecast;
 import tec.bd.weather.repository.memory.InMemoryForecastRepository;
 import tec.bd.weather.repository.Repository;
 import tec.bd.weather.repository.sql.CityRepository;
 import tec.bd.weather.repository.sql.CountryRepository;
-import tec.bd.weather.repository.sql.ForecastRepository;
+import tec.bd.weather.repository.sql.ForecastAnteriorRepository;
 import tec.bd.weather.repository.sql.StateRepository;
 import tec.bd.weather.service.*;
 
@@ -34,8 +34,8 @@ public class ApplicationContext {
 
     private DataSource sqliteDataSource;
 
-    private Repository<Forecast, Integer> inMemoryForecastRepository;
-    private Repository<Forecast, Integer> sqlForecastRepository;
+    private Repository<ForecastAnterior, Integer> inMemoryForecastRepository;
+    private Repository<ForecastAnterior, Integer> sqlForecastRepository;
 
     private Repository<Country, Integer> sqlCountryRepository;
 
@@ -104,18 +104,18 @@ public class ApplicationContext {
     }
 
     private void initSQLForecastRepository() {
-        this.sqlForecastRepository = new ForecastRepository(this.sqliteDataSource);
+        this.sqlForecastRepository = new ForecastAnteriorRepository(this.sqliteDataSource);
     }
 
     private void initWeatherService() {
         this.weatherService = new WeatherServiceImpl(this.sqlForecastRepository);
     }
 
-    public Repository<Forecast, Integer> getInMemoryForecastRepository() {
+    public Repository<ForecastAnterior, Integer> getInMemoryForecastRepository() {
         return this.inMemoryForecastRepository;
     }
 
-    public Repository<Forecast, Integer> getSqlForecastRepository() {
+    public Repository<ForecastAnterior, Integer> getSqlForecastRepository() {
         return this.sqlForecastRepository;
     }
 

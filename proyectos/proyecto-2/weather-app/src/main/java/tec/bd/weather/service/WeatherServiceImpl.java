@@ -1,17 +1,17 @@
 package tec.bd.weather.service;
 
-import tec.bd.weather.entity.Forecast;
+import tec.bd.weather.entity.ForecastAnterior;
 import tec.bd.weather.repository.Repository;
 
 import java.util.List;
 
 public class WeatherServiceImpl implements WeatherService{
-    private final Repository<Forecast, Integer> weatherRepository;
+    private final Repository<ForecastAnterior, Integer> weatherRepository;
     //private Map<String, Float> cityTemperatureData;
 
     //private Map<String, Float> zipCodeTemperatureData;
 
-    public WeatherServiceImpl(Repository<Forecast, Integer> weatherRepository){
+    public WeatherServiceImpl(Repository<ForecastAnterior, Integer> weatherRepository){
         this.weatherRepository = weatherRepository;
 
     }
@@ -43,33 +43,33 @@ public class WeatherServiceImpl implements WeatherService{
     }
 
     @Override
-    public List<Forecast> getAllForecasts() {
+    public List<ForecastAnterior> getAllForecasts() {
         // TODO: aqui podria ir logica de conversion de tipos
 
         return this.weatherRepository.findAll();
     }
 
     @Override
-    public Forecast newForecast(Forecast newForecast) {
-        Forecast.validate(newForecast);
-        var current = this.weatherRepository.findById(newForecast.getId());
+    public ForecastAnterior newForecast(ForecastAnterior newForecastAnterior) {
+        ForecastAnterior.validate(newForecastAnterior);
+        var current = this.weatherRepository.findById(newForecastAnterior.getId());
         if (current.isPresent()) {
             throw new RuntimeException("Weather forecast ID already exists in database");
         }
 
-        return this.weatherRepository.save(newForecast);
+        return this.weatherRepository.save(newForecastAnterior);
     }
     @Override
-    public Forecast updateForecast(Forecast forecast) {
-        Forecast.validate(forecast);
-        if (forecast.getId() < 1) {
-            throw new RuntimeException("Invalid forecast Id " + forecast.getId());
+    public ForecastAnterior updateForecast(ForecastAnterior forecastAnterior) {
+        ForecastAnterior.validate(forecastAnterior);
+        if (forecastAnterior.getId() < 1) {
+            throw new RuntimeException("Invalid forecast Id " + forecastAnterior.getId());
         }
-        var current = this.weatherRepository.findById(forecast.getId());
+        var current = this.weatherRepository.findById(forecastAnterior.getId());
         if (current.isEmpty()) {
             throw new RuntimeException("Weather forecast ID doesn't exists in database");
         }
-        return this.weatherRepository.update(forecast);
+        return this.weatherRepository.update(forecastAnterior);
     }
 
     @Override

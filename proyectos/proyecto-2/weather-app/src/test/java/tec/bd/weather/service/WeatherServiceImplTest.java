@@ -1,7 +1,7 @@
 package tec.bd.weather.service;
 
 import org.junit.jupiter.api.Test;
-import tec.bd.weather.entity.Forecast;
+import tec.bd.weather.entity.ForecastAnterior;
 import tec.bd.weather.repository.memory.InMemoryForecastRepository;
 
 import java.util.Collections;
@@ -20,7 +20,7 @@ public class WeatherServiceImplTest {
         // Arrange
         var forecastRepository = mock(InMemoryForecastRepository.class);
         var weatherService = new WeatherServiceImpl(forecastRepository);
-        var forecast = mock(Forecast.class); // new Forecast(..,..,..,..,..)
+        var forecast = mock(ForecastAnterior.class); // new Forecast(..,..,..,..,..)
 
         given(forecast.getCityName()).willReturn("Alajuela");
         given(forecast.getTemperature()).willReturn(23.0f);
@@ -62,7 +62,7 @@ public class WeatherServiceImplTest {
         // Arrange
         var forecastRepository = mock(InMemoryForecastRepository.class);
         var weatherService = new WeatherServiceImpl(forecastRepository);
-        var forecast = mock(Forecast.class); // new Forecast(..,..,..,..,..)
+        var forecast = mock(ForecastAnterior.class); // new Forecast(..,..,..,..,..)
 
         given(forecast.getZipCode()).willReturn("10101");
         given(forecast.getTemperature()).willReturn(23.0f);
@@ -105,7 +105,7 @@ public class WeatherServiceImplTest {
         given(forecastRepository.findById(anyInt())).willReturn(Optional.empty());
 
         var weatherService = new WeatherServiceImpl(forecastRepository);
-        var forecast = new Forecast(5, "Costa Rica", "Limon", "33122", new Date(), 23.0f);
+        var forecast = new ForecastAnterior(5, "Costa Rica", "Limon", "33122", new Date(), 23.0f);
 
         // Act
         weatherService.newForecast(forecast);
@@ -122,10 +122,10 @@ public class WeatherServiceImplTest {
         // Arrange
         var forecastRepository = mock(InMemoryForecastRepository.class);
 
-        given(forecastRepository.findById(anyInt())).willReturn(Optional.of(new Forecast()));
+        given(forecastRepository.findById(anyInt())).willReturn(Optional.of(new ForecastAnterior()));
 
         var weatherService = new WeatherServiceImpl(forecastRepository);
-        var forecast = new Forecast(5, "Costa Rica", "Limon", "33122", new Date(),  23.0f);
+        var forecast = new ForecastAnterior(5, "Costa Rica", "Limon", "33122", new Date(),  23.0f);
 
         // Act
         try {
@@ -149,7 +149,7 @@ public class WeatherServiceImplTest {
         given(forecastRepository.findById(anyInt())).willReturn(Optional.empty());
 
         var weatherService = new WeatherServiceImpl(forecastRepository);
-        var forecast = new Forecast(5, "Costa Rica", "", "33122", new Date(), 23.0f);
+        var forecast = new ForecastAnterior(5, "Costa Rica", "", "33122", new Date(), 23.0f);
 
         // Act
         try {
@@ -171,8 +171,8 @@ public class WeatherServiceImplTest {
     public void GivenValidForecast_WhenUpdatingTemperature_ThenNewTemperature() {
 
         // Arrange
-        var currentForecast = new Forecast(5, "Costa Rica", "Limon", "33122", new Date(), 23.0f);
-        var forecastToBeUpdated = new Forecast(5, "Costa Rica", "Limon", "33122", new Date(), 19.0f);
+        var currentForecast = new ForecastAnterior(5, "Costa Rica", "Limon", "33122", new Date(), 23.0f);
+        var forecastToBeUpdated = new ForecastAnterior(5, "Costa Rica", "Limon", "33122", new Date(), 19.0f);
         var forecastRepository = mock(InMemoryForecastRepository.class);
 
         given(forecastRepository.findById(anyInt())).willReturn(Optional.of(currentForecast));
@@ -209,7 +209,7 @@ public class WeatherServiceImplTest {
         given(forecastRepository.findById(anyInt())).willReturn(Optional.empty());
 
         var weatherService = new WeatherServiceImpl(forecastRepository);
-        var forecast = new Forecast(5, "Costa Rica", "Limon", "33122", new Date(), 23.0f);
+        var forecast = new ForecastAnterior(5, "Costa Rica", "Limon", "33122", new Date(), 23.0f);
 
         // Act
         try {
@@ -234,7 +234,7 @@ public class WeatherServiceImplTest {
         given(forecastRepository.findById(anyInt())).willReturn(Optional.empty());
 
         var weatherService = new WeatherServiceImpl(forecastRepository);
-        var forecast = new Forecast(5, "Costa Rica", "", "33122", new Date(), 23.0f);
+        var forecast = new ForecastAnterior(5, "Costa Rica", "", "33122", new Date(), 23.0f);
 
         // Act
         try {
@@ -255,7 +255,7 @@ public class WeatherServiceImplTest {
     public void GivenValidForecast_WhenRemoveFarecast_ThenRemove() {
 
         // Arrange
-        var forecast = new Forecast(5, "Costa Rica", "Limon", "40401",new Date(), 25.0f);
+        var forecast = new ForecastAnterior(5, "Costa Rica", "Limon", "40401",new Date(), 25.0f);
         var forecastRepository = mock(InMemoryForecastRepository.class);
 
         given(forecastRepository.findById(anyInt())).willReturn(Optional.of(forecast));
@@ -277,7 +277,7 @@ public class WeatherServiceImplTest {
     public void GivenValidForecast_WhenRemoveFarecast_ThenServiceException() {
 
         // Arrange
-        var forecast = new Forecast(5, "Costa Rica", "Limon", "40401",new Date(), 25.0f);
+        var forecast = new ForecastAnterior(5, "Costa Rica", "Limon", "40401",new Date(), 25.0f);
         var forecastRepository = mock(InMemoryForecastRepository.class);
 
         given(forecastRepository.findById(anyInt())).willReturn(Optional.empty());

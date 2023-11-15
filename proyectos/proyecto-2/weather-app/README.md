@@ -33,22 +33,22 @@ mvn clean install
 
 ```bash
 # Ver opciones disponibles
-java -jar target/forecast-app-<version>-jar-with-dependencies.jar
+java -jar target/forecastAnterior-app-<version>-jar-with-dependencies.jar
 
 # Obtener pronóstico del clima por ciudad
-java -jar target/forecast-app-<version>-jar-with-dependencies.jar by-city 'Alajuela'
-java -jar target/forecast-app-<version>-jar-with-dependencies.jar bc 'Alajuela'
+java -jar target/forecastAnterior-app-<version>-jar-with-dependencies.jar by-city 'Alajuela'
+java -jar target/forecastAnterior-app-<version>-jar-with-dependencies.jar bc 'Alajuela'
 
 # Crear un nuevo pronóstico del clima en una ciudad
-java -jar target/forecast-app-<version>-jar-with-dependencies.jar create-forecast 11 'United States' 'New York' '2023-08-19' 10001 23
-java -jar target/forecast-app-<version>-jar-with-dependencies.jar cf 11 'United States' 'New York' '2023-08-19' 10001 23
+java -jar target/forecastAnterior-app-<version>-jar-with-dependencies.jar create-forecastAnterior 11 'United States' 'New York' '2023-08-19' 10001 23
+java -jar target/forecastAnterior-app-<version>-jar-with-dependencies.jar cf 11 'United States' 'New York' '2023-08-19' 10001 23
 
 # Actualizar un pronóstico del clima
-java -jar target/forecast-app-<version>-jar-with-dependencies.jar update-forecast 11 'United States' 'New York' '2023-08-19' 10001 23
-java -jar target/forecast-app-<version>-jar-with-dependencies.jar uf 11 'United States' 'New York' '2023-08-19' 10001 23
+java -jar target/forecastAnterior-app-<version>-jar-with-dependencies.jar update-forecastAnterior 11 'United States' 'New York' '2023-08-19' 10001 23
+java -jar target/forecastAnterior-app-<version>-jar-with-dependencies.jar uf 11 'United States' 'New York' '2023-08-19' 10001 23
 
 # Borrar un pronóstico del clima
-java -jar target/forecast-app-<version>-jar-with-dependencies.jar rf 1 
+java -jar target/forecastAnterior-app-<version>-jar-with-dependencies.jar rf 1 
 
 ```
 

@@ -1,4 +1,4 @@
-package tec.bd.weather.cli;
+package tec.bd.weather.cli.anteriorForecasts;
 
 import picocli.CommandLine;
 import tec.bd.weather.ApplicationContext;

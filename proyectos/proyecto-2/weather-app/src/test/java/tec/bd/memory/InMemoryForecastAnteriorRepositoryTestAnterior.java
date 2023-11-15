@@ -5,7 +5,7 @@ import tec.bd.weather.repository.memory.InMemoryForecastRepository;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class InMemoryForecastRepositoryTest {
+public class InMemoryForecastAnteriorRepositoryTestAnterior {
 
     private InMemoryForecastRepository repository;
 

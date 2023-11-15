@@ -1,6 +1,9 @@
 package tec.bd.weather.cli;
 
 import picocli.CommandLine;
+import tec.bd.weather.cli.anteriorForecasts.AllForecastsCommand;
+import tec.bd.weather.cli.anteriorForecasts.ForecastByCityCommand;
+import tec.bd.weather.cli.anteriorForecasts.ForecastByZipCodeCommand;
 import tec.bd.weather.cli.city.CreateCityCommand;
 import tec.bd.weather.cli.city.DeleteCityCommand;
 import tec.bd.weather.cli.city.ReadCityCommand;
@@ -9,6 +12,9 @@ import tec.bd.weather.cli.country.CreateCountryCommand;
 import tec.bd.weather.cli.country.DeleteCountryCommand;
 import tec.bd.weather.cli.country.ReadCountryCommand;
 import tec.bd.weather.cli.country.UpdateCountryCommand;
+import tec.bd.weather.cli.anteriorForecasts.CreateForecastCommand;
+import tec.bd.weather.cli.anteriorForecasts.DeleteForecastCommand;
+import tec.bd.weather.cli.anteriorForecasts.UpdateForecastCommand;
 import tec.bd.weather.cli.state.CreateStateCommand;
 import tec.bd.weather.cli.state.DeleteStateCommand;
 import tec.bd.weather.cli.state.ReadStateCommand;
@@ -21,7 +27,7 @@ import tec.bd.weather.cli.state.UpdateStateCommand;
                 ForecastByZipCodeCommand.class,
                 CreateForecastCommand.class,
                 UpdateForecastCommand.class,
-                RemoveForecastCommand.class,
+                DeleteForecastCommand.class,
                 CommandLine.HelpCommand.class,
                 AllForecastsCommand.class,
                 //Country related Commands

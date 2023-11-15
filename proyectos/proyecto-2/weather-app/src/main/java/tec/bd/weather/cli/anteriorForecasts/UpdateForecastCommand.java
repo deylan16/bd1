@@ -1,13 +1,15 @@
-package tec.bd.weather.cli;
+package tec.bd.weather.cli.anteriorForecasts;
 import picocli.CommandLine;
 import tec.bd.weather.ApplicationContext;
-import tec.bd.weather.entity.Forecast;
+import tec.bd.weather.entity.ForecastAnterior;
 
 import java.util.Date;
 
-@CommandLine.Command(name = "create-forecast", aliases = {"cf"}, description = "Create new forecast for a city")
-public class CreateForecastCommand implements Runnable {
+@CommandLine.Command(name = "update-forecast", aliases = { "uf" }, description = "Update existing forecast data")
+public class UpdateForecastCommand implements Runnable {
 
+    @CommandLine.Parameters(paramLabel = "<forecast id>", description = "The new forecast id")
+    private int newForecastId;
 
     @CommandLine.Parameters(paramLabel = "<country name>", description = "The country name")
     private String countryName;
@@ -16,7 +18,6 @@ public class CreateForecastCommand implements Runnable {
     private String cityName;
     @CommandLine.Parameters(paramLabel = "<zip code>", description = "The Zip code")
     private String zipCode;
-
     @CommandLine.Parameters(paramLabel = "<forecast date>", description = "The Forecast date")
     private Date forecastDate;
     @CommandLine.Parameters(paramLabel = "<temperature>", description = "Temperature value")
@@ -27,12 +28,12 @@ public class CreateForecastCommand implements Runnable {
         try {
             var appContext = new ApplicationContext();
             var weatherService = appContext.getWeatherService();
-
-            var forecastToBeCreated = new Forecast(countryName, cityName, zipCode, forecastDate, temperature);
-            var newForecast = weatherService.newForecast(forecastToBeCreated);
-            System.out.println(newForecast);
+            var newForecast = new ForecastAnterior(newForecastId, countryName, cityName, zipCode,forecastDate, temperature);
+            var updatedForecast = weatherService.updateForecast(newForecast);
+            System.out.println(updatedForecast);
         } catch (Exception e) {
-            System.err.println("Can't create forecast. " +  e.getMessage());
+            System.err.println("Can't upated forecast. " +  e.getMessage());
         }
     }
+
 }

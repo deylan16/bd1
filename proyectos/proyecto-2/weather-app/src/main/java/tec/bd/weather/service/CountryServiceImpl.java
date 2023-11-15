@@ -1,7 +1,6 @@
 package tec.bd.weather.service;
 
 import tec.bd.weather.entity.Country;
-import tec.bd.weather.entity.Forecast;
 import tec.bd.weather.repository.Repository;
 
 import java.util.List;
