@@ -1,6 +1,7 @@
-package tec.bd.weather.service;
+package tec.bd.weather.repository.service;
 
 import tec.bd.weather.entity.City;
+import tec.bd.weather.entity.Forecast;
 import tec.bd.weather.entity.State;
 import tec.bd.weather.repository.Repository;
 
@@ -10,9 +11,18 @@ import java.util.Optional;
 public class CityServiceImpl implements CityService{
 
     private Repository<City, Integer> cityRepository;
+    private StateService stateRepository;
+
+    private ForecastService forecastRepository;
 
     public CityServiceImpl(Repository<City, Integer> cityRepository) {
         this.cityRepository = cityRepository;
+
+    }
+    public void initService(StateService stateRepository,ForecastService forecastRepository){
+        this.stateRepository = stateRepository;
+        this.forecastRepository = forecastRepository;
+
     }
 
     @Override
@@ -28,11 +38,22 @@ public class CityServiceImpl implements CityService{
 
     @Override
     public City newCity(String cityName,int zipCode,int stateId) {
-        // TODO:
-        //logica no permitir que contryname sea nulo o vacio
-        //VALIDAR si el country name ya existe ne la base de datos
-        // ára esto abria que buscar el nombre del pais countryname en la base de datos
-        //y ver si existe. si ya existe no se salva
+
+        for (City city : this.getAllCitys()) {
+            if (zipCode == city.getZipCode()){
+                throw new RuntimeException("Zip code already exist");
+            }
+
+        }
+        for (State state : this.stateRepository.getAllStates()) {
+
+            if (state.getId() != stateId){
+                throw new RuntimeException("stateId id not exist");
+            }
+
+        }
+
+
         var cityToBeSave = new City(null,cityName,zipCode,stateId);
         var newCity = (this.cityRepository.save(cityToBeSave));
         return newCity;
@@ -40,8 +61,12 @@ public class CityServiceImpl implements CityService{
 
     @Override
     public void removeByCityId(int cityId){
-        // Validaciones. El country Id es mayor que cero?
-        // lanza una exception
+        for (Forecast forecast : this.forecastRepository.getAllForecasts()) {
+            if (forecast.getCity_id() == cityId){
+                throw new RuntimeException("have forecast");
+            }
+
+        }
         if (cityId <= 0) {
             throw new RuntimeException("City Id requeride < 0");
         }
@@ -58,7 +83,12 @@ public class CityServiceImpl implements CityService{
     public City updateCity(City city) {
         // TODO: validar si el state.Id existe en la base de datos
         // TODO: validar si el nombre del state ya existe en la BD
-        // TODO: validar que exista el state.country_id
+        for (City city2 : this.getAllCitys()) {
+            if (city.getZipCode().equals(city2.getZipCode())){
+                throw new RuntimeException("Zip code already exist");
+            }
+
+        }
 
         var cityUpdated = this.cityRepository.update(city);
         return cityUpdated;

@@ -4,17 +4,12 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.sqlite.SQLiteDataSource;
 import com.mysql.cj.jdbc.MysqlDataSource;
-import tec.bd.weather.entity.City;
-import tec.bd.weather.entity.Country;
-import tec.bd.weather.entity.ForecastAnterior;
-import tec.bd.weather.entity.State;
-import tec.bd.weather.repository.memory.InMemoryForecastRepository;
+import tec.bd.weather.entity.*;
+import tec.bd.weather.repository.memory.InMemoryForecastAnteriorRepository;
 import tec.bd.weather.repository.Repository;
-import tec.bd.weather.repository.sql.CityRepository;
-import tec.bd.weather.repository.sql.CountryRepository;
-import tec.bd.weather.repository.sql.ForecastAnteriorRepository;
-import tec.bd.weather.repository.sql.StateRepository;
-import tec.bd.weather.service.*;
+import tec.bd.weather.repository.service.*;
+import tec.bd.weather.repository.sql.*;
+
 
 
 import javax.sql.DataSource;
@@ -34,13 +29,14 @@ public class ApplicationContext {
 
     private DataSource sqliteDataSource;
 
-    private Repository<ForecastAnterior, Integer> inMemoryForecastRepository;
-    private Repository<ForecastAnterior, Integer> sqlForecastRepository;
+    private Repository<ForecastAnterior, Integer> inMemoryForecastAnteriorRepository;
+    private Repository<ForecastAnterior, Integer> sqlForecastAnteriorRepository;
 
     private Repository<Country, Integer> sqlCountryRepository;
 
     private Repository<State, Integer> sqlStateRepository;
     private Repository<City, Integer> sqlCityRepository;
+    private ForecastRepository sqlForecastRepository;
 
     private WeatherService weatherService;
 
@@ -48,27 +44,41 @@ public class ApplicationContext {
 
     private StateService stateService;
 
-    private CityService CityService;
+    private CityService cityService;
+    private ForecastService forecastService;
 
     public ApplicationContext() {
         initSqliteDataSource();
         initMySqlDataSource();
 
 
-        initInMemoryForecastRepository();
-        initSQLForecastRepository();
+        initInMemoryForecastAnteriorRepository();
+        initSQLForecastAnteriorRepository();
         initSQLCountryRepository();
         initSQLStateRepository();
         initSQLCityRepository();
+        initSQLForecastRepository();
 
         initWeatherService();
 
+        initForecastService();
+        initCityService();
         initStateService();
         initCountryService();
-        initCityService();
+
+        initTodo();
 
 
 
+
+
+    }
+
+    private void initTodo() {
+        this.cityService.initService(this.stateService,this.forecastService);  //city
+        this.countryService.initService(this.stateService);//country
+        this.stateService.initService(this.countryService,this.cityService);//state
+        this.forecastService.initService(this.cityService); //forecast
     }
 
     private void initSqliteDataSource() {
@@ -99,24 +109,24 @@ public class ApplicationContext {
         this.mysqlDataSource = new HikariDataSource(hikariConfig);
     }
 
-    private void initInMemoryForecastRepository() {
-        this.inMemoryForecastRepository = new InMemoryForecastRepository();
+    private void initInMemoryForecastAnteriorRepository() {
+        this.inMemoryForecastAnteriorRepository = new InMemoryForecastAnteriorRepository();
     }
 
-    private void initSQLForecastRepository() {
-        this.sqlForecastRepository = new ForecastAnteriorRepository(this.sqliteDataSource);
+    private void initSQLForecastAnteriorRepository() {
+        this.sqlForecastAnteriorRepository = new ForecastAnteriorRepository(this.sqliteDataSource);
     }
 
     private void initWeatherService() {
-        this.weatherService = new WeatherServiceImpl(this.sqlForecastRepository);
+        this.weatherService = new WeatherServiceImpl(this.sqlForecastAnteriorRepository);
     }
 
-    public Repository<ForecastAnterior, Integer> getInMemoryForecastRepository() {
-        return this.inMemoryForecastRepository;
+    public Repository<ForecastAnterior, Integer> getInMemoryForecastAnteriorRepository() {
+        return this.inMemoryForecastAnteriorRepository;
     }
 
-    public Repository<ForecastAnterior, Integer> getSqlForecastRepository() {
-        return this.sqlForecastRepository;
+    public Repository<ForecastAnterior, Integer> getSqlForecastAnteriorRepository() {
+        return this.sqlForecastAnteriorRepository;
     }
 
     public WeatherService getWeatherService() {
@@ -169,11 +179,29 @@ public class ApplicationContext {
     }
 
     private void initCityService() {
-        this.CityService = new CityServiceImpl(this.sqlCityRepository);
+        this.cityService = new CityServiceImpl(this.sqlCityRepository);
     }
 
     public CityService getCityService(){
-        return this.CityService;
+        return this.cityService;
+    }
+
+    //Forecast Service
+
+    private void initSQLForecastRepository() {
+        this.sqlForecastRepository = new ForecastRepository(this.mysqlDataSource);
+    }
+
+    public Repository<Forecast, Integer> getSqlForecastRepository() {
+        return this.sqlForecastRepository;
+    }
+
+    private void initForecastService() {
+        this.forecastService = new ForecastServiceImpl(this.sqlForecastRepository);
+    }
+
+    public ForecastService getForecastService(){
+        return this.forecastService;
     }
 
 }

@@ -1,4 +1,4 @@
-package tec.bd.weather.service;
+package tec.bd.weather.repository.service;
 
 import tec.bd.weather.entity.City;
 import tec.bd.weather.entity.State;
@@ -16,4 +16,6 @@ public interface CityService {
     void removeByCityId(int cityId);
 
     City updateCity(City city);
+
+    void initService(StateService stateRepository,ForecastService forecastRepository);
 }

@@ -1,4 +1,4 @@
-package tec.bd.weather.service;
+package tec.bd.weather.repository.service;
 
 import tec.bd.weather.entity.Country;
 
@@ -15,4 +15,5 @@ public interface CountryService {
     void removeByCountryId(int countryId);
 
     Country updateCountry(Country country);
+    void initService(StateService stateRepository);
 }

@@ -1,17 +1,26 @@
-package tec.bd.weather.service;
+package tec.bd.weather.repository.service;
 
 import tec.bd.weather.entity.Country;
+import tec.bd.weather.entity.State;
 import tec.bd.weather.repository.Repository;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class CountryServiceImpl implements CountryService{
 
     private Repository<Country, Integer> countryRepository;
+    private StateService stateRepository;
+
 
     public CountryServiceImpl(Repository<Country, Integer> countryRepository) {
         this.countryRepository = countryRepository;
+
+
+    }
+    public void initService(StateService stateRepository){
+        this.stateRepository = stateRepository;
     }
 
     @Override
@@ -27,10 +36,13 @@ public class CountryServiceImpl implements CountryService{
 
     @Override
     public Country newCountry(String countryName) {
-        //logica no permitir que contryname sea nulo o vacio
-        //VALIDAR si el country name ya existe ne la base de datos
-        // ára esto abria que buscar el nombre del pais countryname en la base de datos
-        //y ver si existe. si ya existe no se salva
+        for (Country country : this.getAllCountries()) {
+            if (Objects.equals(countryName, country.getCountryName())){
+                throw new RuntimeException("Country name already exist");
+            }
+
+        }
+
         var countryToBeSave = new Country(null,countryName);
         var newCountry = (this.countryRepository.save(countryToBeSave));
         return newCountry;
@@ -38,8 +50,13 @@ public class CountryServiceImpl implements CountryService{
 
     @Override
     public void removeByCountryId(int countryId){
-        // Validaciones. El country Id es mayor que cero?
-        // lanza una exception
+        for (State state : this.stateRepository.getAllStates()) {
+            if (state.getCountry_id() == countryId){
+                throw new RuntimeException("have states");
+            }
+
+        }
+
         if (countryId <= 0) {
             throw new RuntimeException("Country Id requeride < 0");
         }

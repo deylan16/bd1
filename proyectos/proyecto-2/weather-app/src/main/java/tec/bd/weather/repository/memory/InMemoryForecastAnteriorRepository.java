@@ -5,11 +5,11 @@ import tec.bd.weather.repository.Repository;
 
 import java.util.*;
 
-public class InMemoryForecastRepository implements Repository<ForecastAnterior, Integer> {
+public class InMemoryForecastAnteriorRepository implements Repository<ForecastAnterior, Integer> {
 
     private Set<ForecastAnterior> inMemoryForecastDatumAnteriors;
 
-    public InMemoryForecastRepository() {
+    public InMemoryForecastAnteriorRepository() {
         // "inicializando" la base de datos
         this.inMemoryForecastDatumAnteriors = new HashSet<>();
         this.inMemoryForecastDatumAnteriors.add(new ForecastAnterior(1, "Costa Rica", "Alajuela", "10101", new Date(), 23.0f));

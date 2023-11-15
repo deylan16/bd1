@@ -1,4 +1,4 @@
-package tec.bd.weather.service;
+package tec.bd.weather.repository.service;
 
 import tec.bd.weather.entity.ForecastAnterior;
 import java.util.List;

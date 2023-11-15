@@ -1,5 +1,6 @@
-package tec.bd.weather.service;
+package tec.bd.weather.repository.service;
 
+import tec.bd.weather.entity.City;
 import tec.bd.weather.entity.Country;
 import tec.bd.weather.entity.State;
 import tec.bd.weather.repository.Repository;
@@ -11,8 +12,17 @@ public class StateServiceImpl implements StateService{
 
     private Repository<State, Integer> stateRepository;
 
+    private CountryService countryRepository;
+    private CityService cityRepository;
+
     public StateServiceImpl(Repository<State, Integer> stateRepository) {
         this.stateRepository = stateRepository;
+
+    }
+    public void initService(CountryService countryRepository,CityService cityRepository){
+        this.countryRepository = countryRepository;
+        this.cityRepository = cityRepository;
+
     }
 
     @Override
@@ -28,10 +38,13 @@ public class StateServiceImpl implements StateService{
 
     @Override
     public State newState(String stateName,int countryId) {
-        //logica no permitir que contryname sea nulo o vacio
-        //VALIDAR si el country name ya existe ne la base de datos
-        // ára esto abria que buscar el nombre del pais countryname en la base de datos
-        //y ver si existe. si ya existe no se salva
+        for (Country country : this.countryRepository.getAllCountries()) {
+
+            if (country.getId() != countryId){
+                throw new RuntimeException("countryId id not exist");
+            }
+
+        }
         var stateToBeSave = new State(null,stateName,countryId);
         var newState = (this.stateRepository.save(stateToBeSave));
         return newState;
@@ -39,8 +52,12 @@ public class StateServiceImpl implements StateService{
 
     @Override
     public void removeByStateId(int stateId){
-        // Validaciones. El country Id es mayor que cero?
-        // lanza una exception
+        for (City city : this.cityRepository.getAllCitys()) {
+            if (city.getState_id() == stateId){
+                throw new RuntimeException("have city");
+            }
+
+        }
         if (stateId <= 0) {
             throw new RuntimeException("State Id requeride < 0");
         }

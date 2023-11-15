@@ -2,7 +2,8 @@ package tec.bd.weather.service;
 
 import org.junit.jupiter.api.Test;
 import tec.bd.weather.entity.ForecastAnterior;
-import tec.bd.weather.repository.memory.InMemoryForecastRepository;
+import tec.bd.weather.repository.memory.InMemoryForecastAnteriorRepository;
+import tec.bd.weather.repository.service.WeatherServiceImpl;
 
 import java.util.Collections;
 import java.util.Date;
@@ -18,7 +19,7 @@ public class WeatherServiceImplTest {
     @Test
     public void GivenACity_WhenCityIsSupported_ThenReturnTemperature() {
         // Arrange
-        var forecastRepository = mock(InMemoryForecastRepository.class);
+        var forecastRepository = mock(InMemoryForecastAnteriorRepository.class);
         var weatherService = new WeatherServiceImpl(forecastRepository);
         var forecast = mock(ForecastAnterior.class); // new Forecast(..,..,..,..,..)
 
@@ -39,7 +40,7 @@ public class WeatherServiceImplTest {
     @Test
     public void GivenACity_WhenCityIsNotSupported_ThenException() {
         // Arrange
-        var forecastRepository = mock(InMemoryForecastRepository.class);
+        var forecastRepository = mock(InMemoryForecastAnteriorRepository.class);
         var weatherService = new WeatherServiceImpl(forecastRepository);
 
         given(forecastRepository.findAll()).willReturn(Collections.emptyList());
@@ -60,7 +61,7 @@ public class WeatherServiceImplTest {
     @Test
     public void GivenAZipCode_WhenZipCodeIsSupported_ThenReturnTemperature() {
         // Arrange
-        var forecastRepository = mock(InMemoryForecastRepository.class);
+        var forecastRepository = mock(InMemoryForecastAnteriorRepository.class);
         var weatherService = new WeatherServiceImpl(forecastRepository);
         var forecast = mock(ForecastAnterior.class); // new Forecast(..,..,..,..,..)
 
@@ -81,7 +82,7 @@ public class WeatherServiceImplTest {
     @Test
     public void GivenAZipCode_WhenZipCodeIsNotSupported_ThenException() {
         // Arrange
-        var forecastRepository = mock(InMemoryForecastRepository.class);
+        var forecastRepository = mock(InMemoryForecastAnteriorRepository.class);
         var weatherService = new WeatherServiceImpl(forecastRepository);
 
         given(forecastRepository.findAll()).willReturn(Collections.emptyList());
@@ -100,7 +101,7 @@ public class WeatherServiceImplTest {
     @Test
     public void GivenAValidForecast_WhenCreateNewForecast_ThenForecastIsCreated() {
         // Arrange
-        var forecastRepository = mock(InMemoryForecastRepository.class);
+        var forecastRepository = mock(InMemoryForecastAnteriorRepository.class);
 
         given(forecastRepository.findById(anyInt())).willReturn(Optional.empty());
 
@@ -120,7 +121,7 @@ public class WeatherServiceImplTest {
     @Test
     public void GivenExistingForecast_WhenCreateNewForecast_ThenServiceException() {
         // Arrange
-        var forecastRepository = mock(InMemoryForecastRepository.class);
+        var forecastRepository = mock(InMemoryForecastAnteriorRepository.class);
 
         given(forecastRepository.findById(anyInt())).willReturn(Optional.of(new ForecastAnterior()));
 
@@ -145,7 +146,7 @@ public class WeatherServiceImplTest {
     public void GivenAInvalidForecast_WhenCreateNewForecast_ThenServiceException() {
         // Arrange
 
-        var forecastRepository = mock(InMemoryForecastRepository.class);
+        var forecastRepository = mock(InMemoryForecastAnteriorRepository.class);
         given(forecastRepository.findById(anyInt())).willReturn(Optional.empty());
 
         var weatherService = new WeatherServiceImpl(forecastRepository);
@@ -173,7 +174,7 @@ public class WeatherServiceImplTest {
         // Arrange
         var currentForecast = new ForecastAnterior(5, "Costa Rica", "Limon", "33122", new Date(), 23.0f);
         var forecastToBeUpdated = new ForecastAnterior(5, "Costa Rica", "Limon", "33122", new Date(), 19.0f);
-        var forecastRepository = mock(InMemoryForecastRepository.class);
+        var forecastRepository = mock(InMemoryForecastAnteriorRepository.class);
 
         given(forecastRepository.findById(anyInt())).willReturn(Optional.of(currentForecast));
         given(forecastRepository.update(forecastToBeUpdated)).willReturn(forecastToBeUpdated);
@@ -204,7 +205,7 @@ public class WeatherServiceImplTest {
     @Test
     public void GivenNotExistingForecast_WhenUpdatingTemperature_ThenServiceException(){
         // Arrange
-        var forecastRepository = mock(InMemoryForecastRepository.class);
+        var forecastRepository = mock(InMemoryForecastAnteriorRepository.class);
 
         given(forecastRepository.findById(anyInt())).willReturn(Optional.empty());
 
@@ -230,7 +231,7 @@ public class WeatherServiceImplTest {
 
         // Arrange
 
-        var forecastRepository = mock(InMemoryForecastRepository.class);
+        var forecastRepository = mock(InMemoryForecastAnteriorRepository.class);
         given(forecastRepository.findById(anyInt())).willReturn(Optional.empty());
 
         var weatherService = new WeatherServiceImpl(forecastRepository);
@@ -256,7 +257,7 @@ public class WeatherServiceImplTest {
 
         // Arrange
         var forecast = new ForecastAnterior(5, "Costa Rica", "Limon", "40401",new Date(), 25.0f);
-        var forecastRepository = mock(InMemoryForecastRepository.class);
+        var forecastRepository = mock(InMemoryForecastAnteriorRepository.class);
 
         given(forecastRepository.findById(anyInt())).willReturn(Optional.of(forecast));
 
@@ -278,7 +279,7 @@ public class WeatherServiceImplTest {
 
         // Arrange
         var forecast = new ForecastAnterior(5, "Costa Rica", "Limon", "40401",new Date(), 25.0f);
-        var forecastRepository = mock(InMemoryForecastRepository.class);
+        var forecastRepository = mock(InMemoryForecastAnteriorRepository.class);
 
         given(forecastRepository.findById(anyInt())).willReturn(Optional.empty());
 

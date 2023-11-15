@@ -48,6 +48,18 @@ public class Queries {
     public static final String UPDATE_CITY_PROC = "call update_city(?, ?,?,?)";
 
 
+    //forecast conections
+    public static final String CREATE_FORECAST_PROC= "{call create_forecast(?,?,?,?)} ";
+
+    public static final String FIND_ALL_FORECASTS_PROC= "{call find_all_forecasts(?)}";
+    public static final String FIND_ALL_FORECASTS_DATE_PROC= "{call find_all_forecasts_date(?)}";
+    public static final String FIND_ALL_FORECASTS_ZIP_PROC= "{call find_all_forecasts_zip(?)}";
+
+    public static final String DELETE_FORECAST_BY_ID_PROC = "call delete_forecast(?)";
+
+    public static final String UPDATE_FORECAST_PROC = "call update_forecast(?, ?,?,?)";
+
+
 
 
 
