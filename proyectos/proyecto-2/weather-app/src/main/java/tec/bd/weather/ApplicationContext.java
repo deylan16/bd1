@@ -38,6 +38,8 @@ public class ApplicationContext {
     private Repository<City, Integer> sqlCityRepository;
     private ForecastRepository sqlForecastRepository;
 
+    private ForecastLogRepository sqlForecastLogRepository;
+
     private WeatherService weatherService;
 
     private CountryService countryService;
@@ -46,6 +48,8 @@ public class ApplicationContext {
 
     private CityService cityService;
     private ForecastService forecastService;
+
+    private ForecastLogService forecastLogService;
 
     public ApplicationContext() {
         initSqliteDataSource();
@@ -58,9 +62,10 @@ public class ApplicationContext {
         initSQLStateRepository();
         initSQLCityRepository();
         initSQLForecastRepository();
+        initSQLForecastLogRepository();
 
         initWeatherService();
-
+        initForecastLogService();
         initForecastService();
         initCityService();
         initStateService();
@@ -202,6 +207,24 @@ public class ApplicationContext {
 
     public ForecastService getForecastService(){
         return this.forecastService;
+    }
+
+    //ForecastLog Service
+
+    private void initSQLForecastLogRepository() {
+        this.sqlForecastLogRepository = new ForecastLogRepository(this.mysqlDataSource);
+    }
+
+    public ForecastLogRepository getSqlForecastLogRepository() {
+        return this.sqlForecastLogRepository;
+    }
+
+    private void initForecastLogService() {
+        this.forecastLogService = new ForecastLogServiceImpl(this.sqlForecastLogRepository);
+    }
+
+    public ForecastLogService getForecastLogService(){
+        return this.forecastLogService;
     }
 
 }

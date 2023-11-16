@@ -36,7 +36,7 @@ public class ReadForecastByIdCommand implements Runnable{
             if (forecast.isPresent()) {
                 System.out.println("Forecast");
                 System.out.println("=============================================");
-                
+
                 System.out.println("Zip"+ "\t" + "City"+ "\t" + "State"+ "\t"+ "\t"+ "\t" + "Country");
 
                 var city = cityService.getCityById(forecast.get().getCity_id());

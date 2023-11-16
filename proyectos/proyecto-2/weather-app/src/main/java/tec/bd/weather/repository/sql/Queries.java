@@ -59,6 +59,8 @@ public class Queries {
 
     public static final String UPDATE_FORECAST_PROC = "call update_forecast(?, ?,?,?)";
 
+    public static final String FIND_ALL_FORECASTS_LOG_PROC= "{call find_forecasts_log(?)}";
+
 
 
 

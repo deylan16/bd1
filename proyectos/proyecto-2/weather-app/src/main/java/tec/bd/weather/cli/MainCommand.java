@@ -4,6 +4,7 @@ import picocli.CommandLine;
 //import tec.bd.weather.cli.anteriorForecasts.AllForecastsCommand;
 //import tec.bd.weather.cli.anteriorForecasts.ForecastByCityCommand;
 //import tec.bd.weather.cli.anteriorForecasts.ForecastByZipCodeCommand;
+import tec.bd.weather.cli.ForecastLog.LogCommand;
 import tec.bd.weather.cli.city.CreateCityCommand;
 import tec.bd.weather.cli.city.DeleteCityCommand;
 import tec.bd.weather.cli.city.ReadCityCommand;
@@ -46,13 +47,15 @@ import tec.bd.weather.cli.state.UpdateStateCommand;
                 DeleteCityCommand.class,
                 ReadCityCommand.class,
                 UpdateCityCommand.class,
-                //City forecast Commands
+                // forecast related Commands
                 CreateForecastCommand.class,
                 DeleteForecastCommand.class,
                 ReadForecastByIdCommand.class,
                 ReadForecastByDateCommand.class,
                 ReadForecastByZipCommand.class,
-                UpdateForecastCommand.class
+                UpdateForecastCommand.class,
+                //forecast log related Commands
+                LogCommand.class,
         },description = "Weather App"
 )
 
