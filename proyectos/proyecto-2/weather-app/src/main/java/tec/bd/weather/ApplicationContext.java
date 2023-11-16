@@ -20,8 +20,8 @@ public class ApplicationContext {
 
     private static final String MYSQL_DB_URL = "jdbc:mysql://localhost:3306/weather_service" +
             "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-    private static final String MYSQL_DB_USERNAME = "root";
-    private static final String MYSQL_DB_PASSWORD = "De16072002-";
+    private static final String MYSQL_DB_USERNAME = "weatherappuser";
+    private static final String MYSQL_DB_PASSWORD = "weatherapppass";
 
     private DataSource mysqlDataSource;
 
